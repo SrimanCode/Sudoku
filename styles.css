@@ -12,12 +12,21 @@ table {
     padding: 0px 110px;
     justify-content: center;
 }
-
+h1 {
+    text-align: center;
+    text-shadow: black;
+}
+.message {
+    font-size: 1.3em;
+    justify-content: center;
+    color: grey;
+    padding: 0px 90px;
+}
 #size-form {
     display: flex;
     flex-direction:column;
     align-items: center;
-    margin-top: 2em;
+    margin-top: -15px;
 }
 
 #size-form label {
