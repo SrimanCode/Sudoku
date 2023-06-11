@@ -1,0 +1,96 @@
+
+table {
+    margin: 0 auto;
+}
+#myTextarea {
+    font-size: 15px;
+}
+.input-box {
+    display: block;
+}
+.input-box .input-box-reset {
+    padding: 0px 110px;
+    justify-content: center;
+}
+
+#size-form {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    margin-top: 2em;
+}
+
+#size-form label {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+#size-form select {
+    padding: 0.5em;
+    font-size: 1em;
+    width: 100px;
+    margin-bottom: 1em;
+}
+
+.button-container {
+    text-align: center;
+}
+.solution {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    width: 10em;
+    height: 2.5em;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition-duration: 0.4s;
+}
+
+.solution:hover {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #4CAF50;
+}
+.cell-solved {
+    color: red;
+    text-align: center;
+    font-weight:bolder;
+}
+.container {
+    display: flex;
+    align-items: center;
+}
+#board {
+    margin-left: 110px;
+}
+.button-container{
+    padding: 0em 7em;
+}
+td {
+    height: 50px;
+    width: 50px;
+    border: 1px solid black;
+    text-align: center;
+}
+tr:first-child td {
+    border-top: 3px solid black;
+}
+td:first-child {
+    border-left:  3px solid black;
+}
+td:nth-child(3n) {
+    border-right: 3px solid black;
+}
+tr:nth-child(3n) td {
+    border-bottom: 3px solid black;
+}
+
+
+input {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}

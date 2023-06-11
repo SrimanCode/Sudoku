@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <form id="size-form">
+        <label for="board-size">Board Size:</label>
+        <select id="board-size" name="board-size">
+            <option value="9">9x9</option>
+            <option value="4">4x4</option>
+            <option value="16">16x16</option>
+        </select>
+    </form>
+    <div class = "container">
+        <div class="input-box">
+            <textarea id = "myTextarea" rows="30" cols="50">Import a board here</textarea>
+            <div class = "input-box-reset">
+                <button id = "done-box" class="solution">Clear Input</button>
+            </div>
+        </div>
+        <div class="cointainer1">
+            <table id="board"></table>
+            <div class="button-container">
+                <button class="solution" onclick="">Hint</button>
+                <button id = "reset" class="solution" onclick="">Reset</button>
+                <button id = "solve"class="solution">Check Solution</button>
+            </div>
+        </div>
+    </div>
+    <script src="sudoku.js"></script>
+</body>
+</html>
