@@ -96,7 +96,6 @@ function solveBoard(board) {
                     if (valid(board, i, j, num)) {
                         let cell = document.getElementById(`cell-${i}-${j}`);
                         board[i][j] = num;
-                        cell.classList.add("cell-solved");
                         if (solveBoard(board)) {
                             return true;
                         } else {
@@ -126,14 +125,17 @@ function displaySolution(board) {
         for (let j = 0; j < 9; j++) {
             let cell = document.getElementById(`cell-${i}-${j}`);
             if (cell != null) {
-                cell.value = board[i][j];
-                cell.classList.add("cell-solved");
-            } else {
-                console.log("I'm null!!!");
+                if (cell.value != board[i][j]) {
+                    cell.value = board[i][j];
+                    cell.classList.add("cell-solved");
+                } else {
+                    cell.classList.add("correct");
+                }
             }
         }
     }
 }
+
 
 const textarea = document.getElementById('myTextarea');
 textarea.addEventListener('focus', function() {
@@ -172,7 +174,6 @@ function input_board(value) {
 
     return board;
 }
-
 
 document.getElementById('size-form').addEventListener('submit', function(event) {
     event.preventDefault();
