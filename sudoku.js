@@ -1,41 +1,79 @@
-function generateBoard() {
-    let board = new Array(9).fill(0).map(() => new Array(9).fill(0));
-    for (let i = 0; i < 9; i++) {
-        for (let j = 0; j < 9; j++) {
-            board[i][j] = (i*3 + Math.floor(i/3) + j) % 9 + 1;
+let grid = Array(9).fill().map(() => Array(9).fill(0));
+let answer;
+let numberList = [1, 2, 3, 4, 5, 6, 7, 8 , 9];
+Available_hints = 10;
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));            
+        let temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+let counter;
+function checkGrid(grid) {
+    for (let row = 0; row < 9; row++) {
+        for (let col = 0; col < 9; col++) {
+            if (grid[row][col] === 0) {
+                return false;
+            }
         }
     }
-    return board;
+    return true;
 }
-
-function removeNumbers(board, count) {
-    let i = 0;
-    while (i < count) {
-        let row = Math.floor(Math.random() * 9);
-        let col = Math.floor(Math.random() * 9);
-        if (board[row][col] !== 0) {
-            board[row][col] = 0;
-            i++;
+function fillGrid(grid) {
+    let row, col;
+    for (let i = 0; i < 81; i++) {
+      row = Math.floor(i / 9);
+      col = i % 9;
+      if (grid[row][col] == 0) {
+        shuffle(numberList); 
+        for (let value of numberList) {
+          if (!grid[row].includes(value)) {
+            let columnValues = [grid[0][col], grid[1][col], grid[2][col], grid[3][col], grid[4][col], grid[5][col], grid[6][col], grid[7][col], grid[8][col]];
+            if (!columnValues.includes(value)) {
+              let square = [];
+              if (row < 3) {
+                if (col < 3)
+                  square = grid.slice(0, 3).map(row => row.slice(0, 3));
+                else if (col < 6)
+                  square = grid.slice(0, 3).map(row => row.slice(3, 6));
+                else
+                  square = grid.slice(0, 3).map(row => row.slice(6, 9));
+              } else if (row < 6) {
+                if (col < 3)
+                  square = grid.slice(3, 6).map(row => row.slice(0, 3));
+                else if (col < 6)
+                  square = grid.slice(3, 6).map(row => row.slice(3, 6));
+                else
+                  square = grid.slice(3, 6).map(row => row.slice(6, 9));
+              } else {
+                if (col < 3)
+                  square = grid.slice(6, 9).map(row => row.slice(0, 3));
+                else if (col < 6)
+                  square = grid.slice(6, 9).map(row => row.slice(3, 6));
+                else
+                  square = grid.slice(6, 9).map(row => row.slice(6, 9));
+              }
+              if (![].concat(...square).includes(value)) {
+                grid[row][col] = value;
+                if (checkGrid(grid)) {
+                  return true;
+                } else {
+                  if (fillGrid(grid)) {
+                    return true;
+                  }
+                }
+              }
+            }
+          }
         }
+        break;
+      }
     }
-    return board;
+    grid[row][col] = 0;
 }
-let x;
-function generatePuzzle() {
-    let board = generateBoard();
-    board = removeNumbers(board, 40);
-    return board;
-}
-let board = [[7, 8, 0, 4, 0, 0, 1, 2, 0],
-    [6, 0, 0, 0, 7, 5, 0, 0, 9],
-    [0, 0, 0, 6, 0, 1, 0, 7, 8],
-    [0, 0, 7, 0, 4, 0, 2, 6, 0],
-    [0, 0, 1, 0, 5, 0, 9, 3, 0],
-    [9, 0, 4, 0, 6, 0, 0, 0, 5],
-    [0, 7, 0, 3, 0, 0, 0, 1, 2],
-    [1, 2, 0, 0, 0, 7, 4, 0, 0],
-    [0, 4, 9, 2, 0, 6, 0, 0, 7]]
-
 function renderBoard() {
     var table = document.getElementById('board');
     for (var i = 0; i < 9; ++i) {
@@ -94,7 +132,6 @@ function solveBoard(board) {
             if (board[i][j] === 0) {
                 for (let num = 1; num <= 9; num++) {
                     if (valid(board, i, j, num)) {
-                        let cell = document.getElementById(`cell-${i}-${j}`);
                         board[i][j] = num;
                         if (solveBoard(board)) {
                             return true;
@@ -110,15 +147,6 @@ function solveBoard(board) {
     return true;
 }
 
-document.getElementById('solve').addEventListener('click', function(event) {
-    event.preventDefault();
-    let boardCopy = JSON.parse(JSON.stringify(board));
-    if (solveBoard(boardCopy)) {
-        displaySolution(boardCopy);
-    } else {
-        alert('No solution found for the given Sudoku board.');
-    }
-});
 
 function displaySolution(board) {
     for (let i = 0; i < 9; i++) {
@@ -136,6 +164,27 @@ function displaySolution(board) {
     }
 }
 
+function generateBoard() {
+    grid = Array(9).fill().map(() => Array(9).fill(0));
+    fillGrid(grid);
+    for (let i = 0; i < 60; i++) {
+        let row = Math.floor(Math.random() * 9);
+        let col = Math.floor(Math.random() * 9);
+        grid[row][col] = 0;
+    }
+    answer = JSON.parse(JSON.stringify(grid));
+    solveBoard(answer);
+    board = grid;
+}
+
+function resetBoard() {
+    let boardElement = document.getElementById('board');
+    while (boardElement.firstChild) {
+        boardElement.firstChild.remove();
+    }
+    generateBoard();
+    renderBoard();
+}
 
 const textarea = document.getElementById('myTextarea');
 textarea.addEventListener('focus', function() {
@@ -175,6 +224,18 @@ function input_board(value) {
     return board;
 }
 
+document.getElementById('solve').addEventListener('click', function(event) {
+    event.preventDefault();
+    const hintButton = document.getElementById('Hint');
+    hintButton.disabled = true;
+    let boardCopy = JSON.parse(JSON.stringify(board));
+    if (solveBoard(boardCopy)) {
+        displaySolution(boardCopy);
+    } else {
+        alert('No solution found for the given Sudoku board.');
+    }
+});
+
 document.getElementById('size-form').addEventListener('submit', function(event) {
     event.preventDefault();
     var size = document.getElementById('board-size').value;
@@ -182,14 +243,45 @@ document.getElementById('size-form').addEventListener('submit', function(event) 
     renderBoard();
 });
 
-document.getElementById('reset').addEventListener('click', function(event) {
+document.getElementById('reset').addEventListener('click', function (event) {
+    const hintButton = document.getElementById('Hint');
+    hintButton.disabled = false;
+    Available_hints = 10;
+    const hintsCounter = document.getElementById('hintsCounter');
+    hintsCounter.textContent = Available_hints;
     event.preventDefault();
-    let boardElement = document.getElementById('board');
-    while (boardElement.firstChild) {
-        boardElement.firstChild.remove();
+    resetBoard();
+});
+
+document.getElementById('Hint').addEventListener('click', function(event) {
+    let row, col;
+    let emptyCells = [];
+
+    // Find all empty cells (user input cells)
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[i].length; j++) {
+            if (board[i][j] === 0) {
+                emptyCells.push({ row: i, col: j });
+            }
+        }
     }
-    board = generatePuzzle();
-    renderBoard();
+    if (emptyCells.length > 0) {
+        let randomIndex = Math.floor(Math.random() * emptyCells.length);
+        row = emptyCells[randomIndex].row;
+        col = emptyCells[randomIndex].col;
+
+        // Fill the cell with the corresponding value from the answer array
+        board[row][col] = answer[row][col];
+        let cell = document.getElementById(`cell-${row}-${col}`);
+        cell.value = board[row][col];
+        cell.classList.add("cell-solved"); // Add a CSS class to mark hinted cells
+    }
+    Available_hints--;
+    if (Available_hints === 0) {
+        event.target.disabled = true;
+    }
+    const hintsCounter = document.getElementById('hintsCounter');
+    hintsCounter.textContent = Available_hints;
 });
 
 document.getElementById('done-box').addEventListener('click',function(event) {
@@ -200,4 +292,7 @@ document.getElementById('done-box').addEventListener('click',function(event) {
     }
     renderBoard();
 });
+const hintsCounter = document.getElementById('hintsCounter');
+hintsCounter.textContent = Available_hints;
+generateBoard();
 renderBoard();

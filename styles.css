@@ -28,6 +28,21 @@ h1 {
     color: green;
     background-color:bisque;
 }
+.container2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hints-container {
+    padding: 0px 60px;
+}
+
+.hints-container p {
+    font-size: 1.3em;
+    margin-bottom: 0; 
+}
+
 #size-form {
     display: flex;
     flex-direction:column;
