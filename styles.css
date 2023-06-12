@@ -2,8 +2,6 @@ body {
     background-image: url('./image.jpg');
     background-size: cover;
     background-position: center;
-    width: 100vw;
-    height: 100vh;
 }
 table {
     margin: 0 auto;
