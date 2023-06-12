@@ -12,14 +12,23 @@
     </p>
     <div class="container2">
         <div class="hints-container">
-            <p>HINT LEFT : <span id="hintsCounter"></span></p>
+            <p id>HINT LEFT : <span id="hintsCounter"></span></p>
         </div>
         <form id="size-form">
-            <label for="board-size">Board Size:</label>
             <select id="board-size" name="board-size">
                 <option value="9">9x9</option>
                 <option value="4">4x4</option>
                 <option value="16">16x16</option>
+            </select>
+        </form>
+        <form id="level-form">
+            <label id = "level-name" for="board-size1">Level: </label>
+            <select id="board-size1" name="board-size1">
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+                <option value="Extreme">Extreme</option>
+                <option value="God Mode">God Mode</option>
             </select>
         </form>
     </div>    
@@ -39,6 +48,11 @@
             </div>
         </div>
     </div>
+    <div id="overlay">
+        <div id="message-box">
+          <p id="message-text"></p>
+        </div>
+      </div>
     <script src="./sudoku.js"></script>
 </body>
 </html>

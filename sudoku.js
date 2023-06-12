@@ -1,7 +1,16 @@
 let grid = Array(9).fill().map(() => Array(9).fill(0));
 let answer;
+let dict = {
+    "Easy": 15,
+    "Medium": 35,
+    "Hard": 50,
+    "Extreme": 60,
+    "God Mode": 68
+}
+let mistakes = 0;
 let numberList = [1, 2, 3, 4, 5, 6, 7, 8 , 9];
 Available_hints = 10;
+let level = "Easy";
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));            
@@ -11,6 +20,7 @@ function shuffle(array) {
     }
     return array;
 }
+
 let counter;
 function checkGrid(grid) {
     for (let row = 0; row < 9; row++) {
@@ -22,6 +32,7 @@ function checkGrid(grid) {
     }
     return true;
 }
+
 function fillGrid(grid) {
     let row, col;
     for (let i = 0; i < 81; i++) {
@@ -155,6 +166,7 @@ function displaySolution(board) {
             if (cell != null) {
                 if (cell.value != board[i][j]) {
                     cell.value = board[i][j];
+                    mistakes++;
                     cell.classList.add("cell-solved");
                 } else {
                     cell.classList.add("correct");
@@ -164,10 +176,10 @@ function displaySolution(board) {
     }
 }
 
-function generateBoard() {
+function generateBoard(val) {
     grid = Array(9).fill().map(() => Array(9).fill(0));
     fillGrid(grid);
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < val; i++) {
         let row = Math.floor(Math.random() * 9);
         let col = Math.floor(Math.random() * 9);
         grid[row][col] = 0;
@@ -177,12 +189,12 @@ function generateBoard() {
     board = grid;
 }
 
-function resetBoard() {
+function resetBoard(val) {
     let boardElement = document.getElementById('board');
     while (boardElement.firstChild) {
         boardElement.firstChild.remove();
     }
-    generateBoard();
+    generateBoard(dict[val]);
     renderBoard();
 }
 
@@ -224,6 +236,23 @@ function input_board(value) {
     return board;
 }
 
+function displayMessage(message) {
+  var messageText = document.getElementById("message-text");
+  messageText.textContent = message;
+
+  var overlay = document.getElementById("overlay");
+  overlay.style.display = "flex";
+}
+
+function hideOverlay() {
+    let overlay = document.getElementById('overlay');
+    overlay.style.display = 'none';
+}
+function showOverlay() {
+    let overlay = document.getElementById('overlay');
+    overlay.style.display = 'block';
+}
+
 document.getElementById('solve').addEventListener('click', function(event) {
     event.preventDefault();
     const hintButton = document.getElementById('Hint');
@@ -231,8 +260,13 @@ document.getElementById('solve').addEventListener('click', function(event) {
     let boardCopy = JSON.parse(JSON.stringify(board));
     if (solveBoard(boardCopy)) {
         displaySolution(boardCopy);
+        if (mistakes == 0) {
+            document.getElementById('message-text').textContent = 'Congratulations! You solved the Sudoku puzzle!';
+            showOverlay();
+        }
     } else {
-        alert('No solution found for the given Sudoku board.');
+        document.getElementById('message-text').textContent = 'No solution found for the given Sudoku board.';
+        showOverlay();
     }
 });
 
@@ -250,7 +284,7 @@ document.getElementById('reset').addEventListener('click', function (event) {
     const hintsCounter = document.getElementById('hintsCounter');
     hintsCounter.textContent = Available_hints;
     event.preventDefault();
-    resetBoard();
+    resetBoard(level);
 });
 
 document.getElementById('Hint').addEventListener('click', function(event) {
@@ -283,7 +317,14 @@ document.getElementById('Hint').addEventListener('click', function(event) {
     const hintsCounter = document.getElementById('hintsCounter');
     hintsCounter.textContent = Available_hints;
 });
-
+document.getElementById('level-form').addEventListener('change', function(event) {
+    event.preventDefault();
+    let val = event.target.value;
+    if (level != val && (val === 'Easy' || val === 'Medium' || val === 'Hard' || val === 'Extreme' || val === 'God Mode')) {
+        level = val;
+        resetBoard(level);
+    }
+});
 document.getElementById('done-box').addEventListener('click',function(event) {
     textarea.value = "Import a board here";
     let boardElement = document.getElementById('board');
@@ -292,7 +333,13 @@ document.getElementById('done-box').addEventListener('click',function(event) {
     }
     renderBoard();
 });
+document.getElementById('overlay').addEventListener('click', function(event) {
+    if (event.target === this) {
+        hideOverlay();
+    }
+});
+
 const hintsCounter = document.getElementById('hintsCounter');
 hintsCounter.textContent = Available_hints;
-generateBoard();
+generateBoard(dict[level]);
 renderBoard();
