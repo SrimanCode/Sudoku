@@ -1,4 +1,10 @@
-
+body {
+    background-image: url('./image.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+}
 table {
     margin: 0 auto;
 }
@@ -14,14 +20,22 @@ table {
     justify-content: center;
 }
 h1 {
+    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Mono', monospace;
+    font-family: 'Roboto Slab', serif;
     text-align: center;
     text-shadow: black;
 }
 .message {
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto Mono', monospace;
     font-size: 1.3em;
     justify-content: center;
-    color: grey;
+    color: blue;
     padding: 0px 90px;
+    font-weight: bolder;
 }
 .correct {
     text-align: center;
