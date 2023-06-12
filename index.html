@@ -10,28 +10,6 @@
         This application is designed to be compatible with Sudoku boards from LeetCode. You can easily copy Sudoku boards from LeetCode, paste them here, and check if they can be solved.
         Give it a try, enjoy solving Sudoku puzzles. 
     </p>
-    <div class="container2">
-        <div class="hints-container">
-            <p id>HINT LEFT : <span id="hintsCounter"></span></p>
-        </div>
-        <form id="size-form">
-            <select id="board-size" name="board-size">
-                <option value="9">9x9</option>
-                <option value="4">4x4</option>
-                <option value="16">16x16</option>
-            </select>
-        </form>
-        <form id="level-form">
-            <label id = "level-name" for="board-size1">Level: </label>
-            <select id="board-size1" name="board-size1">
-                <option value="Easy">Easy</option>
-                <option value="Medium">Medium</option>
-                <option value="Hard">Hard</option>
-                <option value="Extreme">Extreme</option>
-                <option value="God Mode">God Mode</option>
-            </select>
-        </form>
-    </div>    
     <div class = "container">
         <div class="input-box">
             <textarea id = "myTextarea" rows="25" cols="50">Import a board here</textarea>
@@ -40,6 +18,28 @@
             </div>
         </div>
         <div class="cointainer1">
+            <div class="container2">
+                <div class="hints-container">
+                    <p id>HINT LEFT : <span id="hintsCounter"></span></p>
+                </div>
+                <form id="size-form">
+                    <select id="board-size" name="board-size">
+                        <option value="9">9x9</option>
+                        <option value="4">4x4</option>
+                        <option value="16">16x16</option>
+                    </select>
+                </form>
+                <form id="level-form">
+                    <label id = "level-name" for="board-size1">Level: </label>
+                    <select id="board-size1" name="board-size1">
+                        <option value="Easy">Easy</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Hard">Hard</option>
+                        <option value="Extreme">Extreme</option>
+                        <option value="God Mode">God Mode</option>
+                    </select>
+                </form>
+            </div>    
             <table id="board"></table>
             <div class="button-container">
                 <button id = "Hint" class="solution">Hint</button>
