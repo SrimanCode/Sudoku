@@ -26,4 +26,5 @@ Sudoku Solver is a web application that allows you to solve Sudoku puzzles. It u
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-
+## Reference Websites
+- https://www.101computing.net/sudoku-generator-algorithm/
