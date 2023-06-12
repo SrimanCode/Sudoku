@@ -33,6 +33,12 @@ function checkGrid(grid) {
     return true;
 }
 
+function playSound() {
+    let audio = new Audio("click.mp3");
+    audio.volume = 0.2;
+    audio.play();
+}
+
 function fillGrid(grid) {
     let row, col;
     for (let i = 0; i < 81; i++) {
@@ -254,6 +260,7 @@ function showOverlay() {
 }
 
 document.getElementById('solve').addEventListener('click', function(event) {
+    playSound();
     event.preventDefault();
     const hintButton = document.getElementById('Hint');
     hintButton.disabled = true;
@@ -278,6 +285,7 @@ document.getElementById('size-form').addEventListener('submit', function(event) 
 });
 
 document.getElementById('reset').addEventListener('click', function (event) {
+    playSound();
     const hintButton = document.getElementById('Hint');
     hintButton.disabled = false;
     Available_hints = 10;
@@ -288,9 +296,9 @@ document.getElementById('reset').addEventListener('click', function (event) {
 });
 
 document.getElementById('Hint').addEventListener('click', function(event) {
+    playSound();
     let row, col;
     let emptyCells = [];
-
     // Find all empty cells (user input cells)
     for (let i = 0; i < board.length; i++) {
         for (let j = 0; j < board[i].length; j++) {
@@ -326,6 +334,7 @@ document.getElementById('level-form').addEventListener('change', function(event)
     }
 });
 document.getElementById('done-box').addEventListener('click',function(event) {
+    playSound();
     textarea.value = "Import a board here";
     let boardElement = document.getElementById('board');
     while (boardElement.firstChild) {
