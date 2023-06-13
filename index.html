@@ -40,34 +40,37 @@
                 <button id = "done-box" class="solution">Clear Input</button>
             </div>
         </div>
-        <div class="cointainer1">
-            <div class="container2">
-                <div class="hints-container">
-                    <p id>HINT LEFT : <span id="hintsCounter"></span></p>
+        <div class="main-container">
+            <div class="cointainer1">
+                <div class="container2">
+                    <div class="hints-container">
+                        <p id>HINT LEFT : <span id="hintsCounter"></span></p>
+                    </div>
+                    <form id="size-form">
+                        <select id="board-size" name="board-size">
+                            <option value="9">9x9</option>
+                            <option value="4">4x4</option>
+                            <option value="16">16x16</option>
+                        </select>
+                    </form>
+                    <form id="level-form">
+                        <label id = "level-name" for="board-size1">Level: </label>
+                        <select id="board-size1" name="board-size1">
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
+                            <option value="Extreme">Extreme</option>
+                            <option value="God Mode">God Mode</option>
+                        </select>
+                    </form>
+                </div>    
+                <table id="board"></table>
+                <div class="button-container">
+                    <button id = "Hint" class="solution">Hint</button>
+                    <button id = "reset" class="solution">Reset</button>
+                    <button id = "solve"class="solution">Check Solution</button>
                 </div>
-                <form id="size-form">
-                    <select id="board-size" name="board-size">
-                        <option value="9">9x9</option>
-                        <option value="4">4x4</option>
-                        <option value="16">16x16</option>
-                    </select>
-                </form>
-                <form id="level-form">
-                    <label id = "level-name" for="board-size1">Level: </label>
-                    <select id="board-size1" name="board-size1">
-                        <option value="Easy">Easy</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Hard">Hard</option>
-                        <option value="Extreme">Extreme</option>
-                        <option value="God Mode">God Mode</option>
-                    </select>
-                </form>
-            </div>    
-            <table id="board"></table>
-            <div class="button-container">
-                <button id = "Hint" class="solution">Hint</button>
-                <button id = "reset" class="solution">Reset</button>
-                <button id = "solve"class="solution">Check Solution</button>
+            </div>
             </div>
         </div>
     </div>
@@ -77,6 +80,15 @@
         </div>
       </div>
     <script src="./sudoku.js"></script>
-
 </body>
+<footer>
+    <div class="count">
+        <p>&copy; 2023 All rights reserved.</p>
+        <p>Website designed by John Doe</p>
+        <div class="visitor">
+            <a href='https://acadooghostwriter.com/'>AcadooGhostwriter.com</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=00fa3355e7e8354a6d603d9719e013017aa36b8f'></script>
+            <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1041705/t/5"></script>
+        </div>
+    </div>
+  </footer>
 </html>

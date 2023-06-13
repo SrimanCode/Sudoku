@@ -3,6 +3,23 @@ body {
     background-size: cover;
     background-position: center;
 }
+.main-container {
+    display: flex;
+    justify-content: space-between;
+}
+.message_head {
+    display: flex;
+    background-color: green;
+}
+#head {
+    display: flex;
+    padding: 0px 170px;
+    font-size: 1.4em;
+}
+.line-1 {
+    height: 1px;
+    background: black;
+  }
 .timer-container {
     display: flex;
     justify-content: center;
@@ -22,7 +39,6 @@ body {
     border-style: solid;
     border-color: black;
   }
-
   .time1 {
     padding: 5px;
     text-align: center;
@@ -232,3 +248,15 @@ input {
   #message-text {
     margin: 0;
   }
+
+footer {
+padding: 20px;
+text-align: center;
+}
+.count {
+    display: flex;
+    justify-content: center;
+}
+.visitor {
+    padding: 0px 20px;
+}
