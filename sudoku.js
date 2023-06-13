@@ -7,6 +7,55 @@ let dict = {
     "Extreme": 60,
     "God Mode": 68
 }
+var timeElement = document.querySelector('.time');
+var timerId;
+var seconds = 0;
+var minutes = 0;
+
+document.getElementById('startButton').addEventListener('click', function() {
+    if (!timerId) {
+        startTimer();
+    } else {
+        stopTimer();
+    }
+});
+
+function startTimer() {
+    timerId = setInterval(updateTime, 1000);
+    document.getElementById('timerIcon').textContent = 'pause_circle';
+}
+
+function stopTimer() {
+    clearInterval(timerId);
+    timerId = null;
+    document.getElementById('timerIcon').textContent = 'play_circle';
+}
+
+function updateTime() {
+    seconds++;
+    if (seconds === 60) {
+        seconds = 0;
+        minutes++;
+    }
+
+    var formattedTime = formatTime(minutes) + ':' + formatTime(seconds);
+    timeElement.textContent = formattedTime;
+}
+
+function formatTime(time) {
+    return time < 10 ? '0' + time : time;
+}
+
+function resetTimer() {
+    clearInterval(timerId);
+    timerId = null;
+    seconds = 0;
+    minutes = 0;
+    timeElement.textContent = '00:00';
+    document.getElementById('timerIcon').textContent = 'play_circle';
+}
+
+
 let mistakes = 0;
 let numberList = [1, 2, 3, 4, 5, 6, 7, 8 , 9];
 Available_hints = 10;
@@ -347,7 +396,7 @@ document.getElementById('overlay').addEventListener('click', function(event) {
         hideOverlay();
     }
 });
-
+  
 const hintsCounter = document.getElementById('hintsCounter');
 hintsCounter.textContent = Available_hints;
 generateBoard(dict[level]);

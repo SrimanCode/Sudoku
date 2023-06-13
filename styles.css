@@ -3,6 +3,63 @@ body {
     background-size: cover;
     background-position: center;
 }
+.timer-container {
+    display: flex;
+    justify-content: center;
+    grid-template-columns: 1fr auto; /* Divide the container into two columns */
+    align-items: center;
+    height: 200px;
+  }
+  .timer_box {
+    display: flex;
+    justify-content: center;
+    width: 320px;
+    height: 100px;
+    background-image: url('mountain.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 70px;
+    border-style: solid;
+    border-color: black;
+  }
+
+  .time1 {
+    padding: 5px;
+    text-align: center;
+    color: purple;
+  }
+  
+  .settings {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .button__start {
+    border-radius: 50%;
+    background-color: #b2eab2; /* Green */
+  }
+  
+  .button__reset {
+    border-radius: 50%;
+    background-color: #b2eab2;; /* Green */
+  }
+  
+  .material-symbols-outlined {
+    padding: 15px 15px;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .material-symbols-outlined.animate {
+    transform: scale(1.2);
+  }
+.button__start:hover {
+    background-color: skyblue;
+}
+
+.button__reset:hover {
+    background-color: skyblue;
+}
 table {
     margin: 0 auto;
 }
