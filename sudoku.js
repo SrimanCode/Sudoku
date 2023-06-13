@@ -310,6 +310,7 @@ function showOverlay() {
 
 document.getElementById('solve').addEventListener('click', function(event) {
     playSound();
+    stopTimer();
     event.preventDefault();
     const hintButton = document.getElementById('Hint');
     hintButton.disabled = true;
@@ -334,6 +335,8 @@ document.getElementById('size-form').addEventListener('submit', function(event) 
 });
 
 document.getElementById('reset').addEventListener('click', function (event) {
+    resetTimer();
+    startTimer();
     playSound();
     const hintButton = document.getElementById('Hint');
     hintButton.disabled = false;
@@ -399,5 +402,6 @@ document.getElementById('overlay').addEventListener('click', function(event) {
   
 const hintsCounter = document.getElementById('hintsCounter');
 hintsCounter.textContent = Available_hints;
+startTimer();
 generateBoard(dict[level]);
 renderBoard();
