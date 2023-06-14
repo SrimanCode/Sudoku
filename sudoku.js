@@ -140,26 +140,61 @@ function fillGrid(grid) {
     }
     grid[row][col] = 0;
 }
+let previous_clicked;
+let clicked_cell = false;
 function renderBoard() {
-    var table = document.getElementById('board');
-    for (var i = 0; i < 9; ++i) {
-        var row = document.createElement('tr');
-        for (var j = 0; j < 9; ++j) {
-            var cell = document.createElement('td');
-            if (board[i][j] !== 0) {
-                cell.textContent = board[i][j];
-            } else {
-                var input = document.createElement('input');
-                input.type = 'text';
-                input.maxLength = '1';
-                input.id = `cell-${i}-${j}`; // Assign an ID to the input element
-                cell.appendChild(input);
-            }
-            row.appendChild(cell);
-        }
-        table.appendChild(row);
+  var table = document.getElementById('board');
+  for (var i = 0; i < 9; ++i) {
+    var row = document.createElement('tr');
+    for (var j = 0; j < 9; ++j) {
+      var cell = document.createElement('td');
+      if (board[i][j] !== 0) {
+        cell.textContent = board[i][j];
+      } else {
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = '1';
+        input.id = `cell-${i}-${j}`;
+        cell.appendChild(input);
+      }
+      row.appendChild(cell);
     }
+    table.appendChild(row);
+  }
+  
+  var inputCells = document.querySelectorAll('input[type="text"]');
+  inputCells.forEach(function(input) {
+    input.addEventListener('click', function(event) {
+      inputCells.forEach(function(cell) {
+        cell.style.backgroundColor = '';
+      });
+      previous_clicked = event.target;
+      clicked_cell = true;
+      event.target.style.backgroundColor = 'lightblue';
+    });
+  });
 }
+let clicked = false;
+const keys = document.querySelectorAll('.key');
+keys.forEach(key => {
+  key.addEventListener('click', () => {
+    clicked = true;
+    if (previous_clicked) {
+      previous_clicked.value = key.textContent;
+    }
+  });
+});
+
+var keypad = document.querySelector('.keypad');
+setInterval(function() {
+    if (!clicked_cell && clicked) {
+      keypad.classList.add('shake');
+      setTimeout(function() {
+        keypad.classList.remove('shake');
+      }, 500);
+    }
+  }, 2000);
+
 
 function checkSolution() {
     var table = document.getElementById('board');
@@ -267,9 +302,17 @@ textarea.addEventListener('input', function() {
         boardElement.firstChild.remove();
     }
     board = input_board(textarea.value);
-    renderBoard();
+    let temp = JSON.parse(JSON.stringify(board));
+    if (!solveBoard(temp)) {
+        displayMessage('No solution found for the given Sudoku board.');
+        resetBoard(level);
+    } else {
+        answer = temp;
+        renderBoard();
+    }
   }
 });
+
 
 function input_board(value) {
     let board = [];
@@ -399,9 +442,9 @@ document.getElementById('overlay').addEventListener('click', function(event) {
         hideOverlay();
     }
 });
-  
 const hintsCounter = document.getElementById('hintsCounter');
 hintsCounter.textContent = Available_hints;
 startTimer();
 generateBoard(dict[level]);
 renderBoard();
+
