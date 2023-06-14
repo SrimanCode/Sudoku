@@ -392,6 +392,7 @@ document.getElementById('reset').addEventListener('click', function (event) {
 
 document.getElementById('Hint').addEventListener('click', function(event) {
     playSound();
+    clicked = false;
     let row, col;
     let emptyCells = [];
     // Find all empty cells (user input cells)
@@ -411,7 +412,7 @@ document.getElementById('Hint').addEventListener('click', function(event) {
         board[row][col] = answer[row][col];
         let cell = document.getElementById(`cell-${row}-${col}`);
         cell.value = board[row][col];
-        cell.classList.add("cell-solved"); // Add a CSS class to mark hinted cells
+        cell.classList.add("cell-solved"); 
     }
     Available_hints--;
     if (Available_hints === 0) {
